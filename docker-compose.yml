@@ -1,52 +1,51 @@
 version: '3'
 services:
- my-postgres:
-   image: postgres
-   expose:
-     - "5432"
-   ports:
-     - "5432:5432"
-   command: -p 5432
-   restart: unless-stopped
-   environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=93773621
-     - POSTGRES_DB=forum
-     - PGDATA=/var/lib/postgresql/data/pgdata
+  my-postgres:
+    image: postgres
+    expose:
+      - "5432"
+    ports:
+      - "5432:5432"
+    command: -p 5432
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=93773621
+      - POSTGRES_DB=forum
+      - PGDATA=/var/lib/postgresql/data/pgdata
   #  volumes:
   #    - ../data :/var/lib/postgresql/data
 
- pgadmin:
-   image: dpage/pgadmin4
-   ports:
-     - "5050:80"
-   environment:
-     - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-     - PGADMIN_DEFAULT_PASSWORD=admin
-   depends_on: 
-     - my-postgres
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    depends_on:
+      - my-postgres
 
- backend:
-  image: anniexp/forum-backend:latest
-  ports:
-     - "8081:8081"
-  depends_on:
-     - my-postgres
- 
- frontend:
-   image: anniexp/forum-frontend:latest
-   ports:
-     - "3000:3000"
-   depends_on:
-     - backend
+  backend:
+    image: anniexp/forum-backend:latest
+    ports:
+      - "8081:8081"
+    depends_on:
+      - my-postgres
 
- watchtower:
-   image: containrrr/watchtower
-   depends_on: 
-     - frontend
-   ports:
-     - "8082:8080"
-   volumes:
-     - ../wachtower:/var/run/docker.sock
-   command: --monitor-only backend frontend --interval 86400
-   
+  frontend:
+    image: anniexp/forum-frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  watchtower:
+    image: containrrr/watchtower
+    depends_on:
+      - frontend
+    ports:
+      - "8082:8080"
+    volumes:
+      - ../wachtower:/var/run/docker.sock
+    command: --monitor-only backend frontend --interval 86400
