@@ -25,9 +25,9 @@ jobs:
       with:
         compose-file: "../../docker-compose.yml"
         down-flags: "--volumes"
-        services: |
-          my-postgres
-          backend
-          frontend
+        # services: |
+        #   my-postgres
+        #   backend
+        #   frontend
     - name: Test
       run: docker run --network container:forum-copy anniexp/forum-frontend:latest -s --retry 10 --retry-connrefused http://localhost:3000/
