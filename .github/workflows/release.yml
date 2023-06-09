@@ -16,5 +16,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
+          load: true
           tags: ${{secrets.DOCKERHUB_USERNAME}}/forum-backend:latest
