@@ -30,4 +30,4 @@ jobs:
           backend
           frontend
     - name: Test
-      run: docker run --network container:forum-copy appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
+      run: docker run --network container:forum-copy anniexp/forum-frontend:latest -s --retry 10 --retry-connrefused http://localhost:3000/
