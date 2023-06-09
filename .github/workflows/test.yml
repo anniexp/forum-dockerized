@@ -23,18 +23,17 @@ jobs:
 
     - name: Redicrect to docker-compose file
       run: cd ../../
-    - name: Docker Compose Action
-      run: docker compose up -d
-      # uses: isbang/compose-action@v1.4.1
-      # with:
-      #   compose-file: ../../docker-compose.yml
-      #   down-flags: "--volumes"
-        # services: |
-        #   my-postgres
-        #   backend
-        #   frontend
+    - name: Docker Compose Actions
+      # run: docker compose up -d
+      uses: isbang/compose-action@v1.4.1
+      with:
+        compose-file: docker-compose.yml
+        down-flags: "--volumes"
+        services: |
+          my-postgres
+          backend
+          frontend
     # - name: Test
-    # run: docker run --network container:forum-dockerized-frontend-1 anniexp/forum-frontend:latest http://localhost:3000/
     
     - name: Start the service
       run: docker run -d --name forum-frontend forum-frontend
