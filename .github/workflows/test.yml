@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  docker:
+    runs-on: ububtu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_NEW_TOKEN }}
+    # - name: Build and push
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #     context: .
+    #     push: true
+    #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest
+    - name:
+      uses: isbang/compose-action@v1.4.1
+      with:
+        compose-file: "../../docker-compose.yml"
+        down-flags: "--volumes"
+        services: |
+          my-postgres
+          backend
+          frontend
