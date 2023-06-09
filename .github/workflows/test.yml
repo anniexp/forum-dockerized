@@ -4,8 +4,8 @@ on:
     branches:
       - "main"
 jobs:
-  docker:
-    runs-on: [ubuntu-latest, windows-latest, macos-latest, self-hosted]
+  test:
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
     #     context: .
     #     push: true
     #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest
-    - name:
+    - name: Docker Compose Action
       uses: isbang/compose-action@v1.4.1
       with:
         compose-file: "../../docker-compose.yml"
@@ -29,3 +29,5 @@ jobs:
           my-postgres
           backend
           frontend
+    - name: Test
+      run: docker run --network container:forum-copy appropriate/curl -s --retry 10 --retry-connrefused http://localhost:3000/
