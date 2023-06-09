@@ -33,6 +33,9 @@ jobs:
         #   my-postgres
         #   backend
         #   frontend
-    - name: Test
+    # - name: Test
     # run: docker run --network container:forum-dockerized-frontend-1 anniexp/forum-frontend:latest http://localhost:3000/
-      run: curl localhost:3000
+    
+    - name: Start the service
+      run: docker run -d --name my-service my-service
+    - run:  docker run --network container:my-service anniexp/forum-frontend:latest --retry 10 --retry-connrefused http://localhost:3000/topics
