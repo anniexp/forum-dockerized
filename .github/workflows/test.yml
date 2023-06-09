@@ -20,11 +20,15 @@ jobs:
     #     context: .
     #     push: true
     #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/app:latest
+
+    - name: Redicrect to docker-compose file
+      run: cd ../../
     - name: Docker Compose Action
-      uses: isbang/compose-action@v1.4.1
-      with:
-        compose-file: ../../docker-compose.yml
-        down-flags: "--volumes"
+      run: docker compose up -d
+      # uses: isbang/compose-action@v1.4.1
+      # with:
+      #   compose-file: ../../docker-compose.yml
+      #   down-flags: "--volumes"
         # services: |
         #   my-postgres
         #   backend
