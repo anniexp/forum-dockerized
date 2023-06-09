@@ -35,6 +35,6 @@ jobs:
           frontend
     # - name: Test
     
-    - name: Start the service
-      run: docker run -d --name forum-frontend forum-frontend
-    - run:  docker run --network container:my-service anniexp/forum-frontend:latest --retry 10 --retry-connrefused http://localhost:3000/topics
+    # - name: Start the service
+    #   run: docker run -d --name anniexp/forum-frontend anniexp/forum-frontend
+    # - run:  docker run --network container:my-service anniexp/forum-frontend:latest --retry 10 --retry-connrefused http://localhost:3000/topics
