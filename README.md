@@ -1,2 +1,3 @@
 # forum-dockerized
  
+A directory, containing .yml files with scrips for dockerization of a multi service aplication. The Compose file is a YAML file defining services, networks, and volumes for a Docker application. Tje docker application consistes of several images, in each a different components of the application. The frontend and backend source code is in repositories mse-forum-frontend and mse-forum-backend. The application uses PosgreSQL database. The test.yml file consists of CI script which builds, composes, runs and test the dockerized application on push to the main github branch. The release.yml file runs on publishing a new release of the main branch of the repositry in github. 
